@@ -271,6 +271,15 @@
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "line_style": 0,
+        "name": "Power",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "wire_width": 6
       }
     ],
     "meta": {
@@ -411,7 +420,13 @@
     [
       "105c8684-f34c-4494-b57f-16bc7169af85",
       "Root"
+    ],
+    [
+      "e56d043a-8982-4049-b64e-74714105e6a5",
+      "Connectors"
     ]
   ],
-  "text_variables": {}
+  "text_variables": {
+    "project_name": "MCU Datalogger with memory and clock"
+  }
 }
