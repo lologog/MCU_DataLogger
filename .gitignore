@@ -1,9 +1,9 @@
 #PCB
-PCBs/MCU_DataLoggerPCB/MCU_DataLoggerPCB-backups/
-PCBs/MCU_DataLoggerPCB/fp-info-cache
-PCBs/MCU_DataLoggerPCB/MCU_DataLoggerPCB.kicad_prl
-PCBs/MCU_DataLoggerPCB/~MCU_DataLoggerPCB.kicad_sch.lck
-PCBs/MCU_DataLoggerPCB/#auto_saved_files#
-PCBs/MCU_DataLoggerPCB/~MCU_DataLoggerPCB.kicad_pcb.lck
-PCBs/MCU_DataLoggerPCB/2_layer_MCU_DataLogger_Gerbers/
-PCBs/MCU_DataLoggerPCB/4_layer_MCU_DataLogger_Gerbers/
+PCBs/MCU_DataLoggerPCB-backups/
+PCBs/fp-info-cache
+PCBs/MCU_DataLoggerPCB.kicad_prl
+PCBs/~MCU_DataLoggerPCB.kicad_sch.lck
+PCBs/#auto_saved_files#
+PCBs/~MCU_DataLoggerPCB.kicad_pcb.lck
+PCBs/2_layer_MCU_DataLogger_Gerbers/
+PCBs/4_layer_MCU_DataLogger_Gerbers/
