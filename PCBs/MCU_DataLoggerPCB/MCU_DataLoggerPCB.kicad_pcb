@@ -121,7 +121,7 @@
 			(mirror no)
 			(drillshape 0)
 			(scaleselection 1)
-			(outputdirectory "MCU_DataloggerGerbers/")
+			(outputdirectory "2_layer_MCU_DataLogger_Gerbers/")
 		)
 	)
 	(property "project_name" "MCU Datalogger with memory and clock")
