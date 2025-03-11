@@ -1190,7 +1190,7 @@
 		)
 		(uuid "f222fd73-c854-4ed7-9d62-efd15b922342")
 	)
-	(hierarchical_label "SCK"
+	(hierarchical_label "SCL"
 		(shape passive)
 		(at 142.24 99.06 0)
 		(effects

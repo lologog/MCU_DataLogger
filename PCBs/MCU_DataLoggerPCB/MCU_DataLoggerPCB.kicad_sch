@@ -2951,6 +2951,16 @@
 	)
 	(wire
 		(pts
+			(xy 201.93 134.62) (xy 204.47 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30adc61f-7941-40c4-a3f7-6c5bc002a79e")
+	)
+	(wire
+		(pts
 			(xy 106.68 36.83) (xy 101.6 36.83)
 		)
 		(stroke
@@ -3779,6 +3789,16 @@
 		)
 		(uuid "ff32f1d6-eff7-4fac-8ce5-101e6b0b1c2a")
 	)
+	(label "SCK"
+		(at 201.93 134.62 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "05ba466e-0d6f-4765-bd61-a4656c87e44d")
+	)
 	(label "TX"
 		(at 229.87 38.1 0)
 		(effects
@@ -3859,6 +3879,16 @@
 		)
 		(uuid "28e9d362-ce11-4fdd-b533-582cee1d3e9c")
 	)
+	(label "SCL"
+		(at 201.93 114.3 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3435dbbc-8281-4837-b8a5-795d76e4a420")
+	)
 	(label "SDA"
 		(at 199.39 68.58 180)
 		(effects
@@ -3909,6 +3939,16 @@
 		)
 		(uuid "4abe94a7-573e-4e2d-ba08-ab2047fa8c71")
 	)
+	(label "SCL"
+		(at 118.11 90.17 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4b85b834-e180-4fc3-bba5-22daa995bd83")
+	)
 	(label "D4"
 		(at 229.87 45.72 0)
 		(effects
@@ -3928,16 +3968,6 @@
 			(justify left bottom)
 		)
 		(uuid "5d455033-f86e-4a77-b5d5-ca62a27fff3d")
-	)
-	(label "SCK"
-		(at 68.58 83.82 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "66fc6c53-d912-4e22-9054-270dcd21e5c7")
 	)
 	(label "VCC"
 		(at 111.76 25.4 0)
@@ -3959,7 +3989,7 @@
 		)
 		(uuid "74c5c572-ae02-405b-b33c-21d8c7e27d7b")
 	)
-	(label "SCK"
+	(label "SCL"
 		(at 199.39 71.12 180)
 		(effects
 			(font
@@ -4009,15 +4039,15 @@
 		)
 		(uuid "8d69ec09-9a31-48b0-8622-d34ccf5fa77c")
 	)
-	(label "SCK"
-		(at 102.87 83.82 0)
+	(label "SCL"
+		(at 66.04 34.29 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
-		(uuid "8fd7834d-ff72-4795-9a70-9100dd40c468")
+		(uuid "939d1897-7308-4c72-ad41-db6ae5bc9d0b")
 	)
 	(label "MOSI"
 		(at 199.39 43.18 180)
@@ -4048,16 +4078,6 @@
 			(justify right bottom)
 		)
 		(uuid "9890e3e4-1328-4ecd-af89-af97b95d1df0")
-	)
-	(label "SCK"
-		(at 118.11 90.17 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "9cb2bccd-d732-4968-80a0-89a919b5b1c4")
 	)
 	(label "VCC"
 		(at 48.26 83.82 180)
@@ -4139,16 +4159,6 @@
 		)
 		(uuid "bd8f04fa-f57b-4e95-8abf-fb7b9f6ab4de")
 	)
-	(label "SCK"
-		(at 66.04 34.29 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c6076cad-6531-419a-aa93-40867b2a1208")
-	)
 	(label "D7"
 		(at 229.87 53.34 0)
 		(effects
@@ -4179,6 +4189,16 @@
 		)
 		(uuid "d9089cd8-251a-4452-b7a9-6a47bc7193e6")
 	)
+	(label "SCL"
+		(at 68.58 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "db392baa-c823-438b-a374-9b34e9ca38d5")
+	)
 	(label "VCC"
 		(at 92.71 74.93 180)
 		(effects
@@ -4208,6 +4228,16 @@
 			(justify left bottom)
 		)
 		(uuid "e1722633-15f9-4469-8ebd-a813b9e71440")
+	)
+	(label "SCL"
+		(at 102.87 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e601aead-1d11-477f-a976-228d86a6123e")
 	)
 	(label "D6"
 		(at 227.33 120.65 0)
@@ -4259,16 +4289,6 @@
 		)
 		(uuid "f4d18122-8600-4fa3-adde-fc9746f73928")
 	)
-	(label "SCK"
-		(at 201.93 114.3 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "f724618e-6bfb-49ea-8f83-2e3580fcdb36")
-	)
 	(label "MOSI"
 		(at 201.93 132.08 180)
 		(effects
@@ -4287,10 +4307,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "007c7efc-e118-4b9a-b04e-338ed7863171")
 		(property "Reference" "R7"
-			(at 190.5 67.31 90)
+			(at 190.5 68.834 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4298,7 +4317,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 190.5 69.85 90)
+			(at 190.5 71.374 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7602,7 +7621,7 @@
 	)
 	(sheet
 		(at 204.47 101.6)
-		(size 20.32 33.02)
+		(size 20.32 35.56)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -7626,7 +7645,7 @@
 			)
 		)
 		(property "Sheetfile" "Connectors.kicad_sch"
-			(at 204.47 135.2046 0)
+			(at 204.47 137.7446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7734,16 +7753,6 @@
 				(justify left)
 			)
 		)
-		(pin "SCK" passive
-			(at 204.47 114.3 180)
-			(uuid "33f3657c-de41-405b-90df-dbf4b09bc1f5")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "TX" output
 			(at 204.47 121.92 180)
 			(uuid "b70ae5cd-b476-407d-b607-b2c71ef1b17d")
@@ -7787,6 +7796,26 @@
 		(pin "MOSI" input
 			(at 204.47 132.08 180)
 			(uuid "670f4e19-d128-4a96-b482-ada15196e66c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCK" passive
+			(at 204.47 134.62 180)
+			(uuid "27faabad-66ba-4a47-88a8-2b9fcff0e2ea")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCL" passive
+			(at 204.47 114.3 180)
+			(uuid "e87dfb12-abb1-40f0-b87d-eff2d1fe1819")
 			(effects
 				(font
 					(size 1.27 1.27)
