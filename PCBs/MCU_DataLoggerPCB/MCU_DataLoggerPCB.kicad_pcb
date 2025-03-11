@@ -1840,6 +1840,18 @@
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Crystal.3dshapes/Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering.wrl"
+			(hide yes)
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+		(model "${KICAD9_3DMODEL_DIR}/Crystal.3dshapes/Crystal_SMD_0603-2Pin_6.0x3.5mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -4330,6 +4342,29 @@
 			(uuid "aba7c0a2-48a3-4b7d-a3e2-597e4feb3d18")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/Libraries/ATMEGA328P-AU/ATMEGA328P-AU.step"
+			(hide yes)
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -0 -0 -0)
+			)
+		)
+		(model "${KICAD9_3DMODEL_DIR}/Package_QFP.3dshapes/LQFP-32_7x7mm_P0.8mm.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering"
 		(layer "F.Cu")
@@ -4638,6 +4673,18 @@
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Crystal.3dshapes/Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering.wrl"
+			(hide yes)
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+		(model "${KICAD9_3DMODEL_DIR}/Crystal.3dshapes/Crystal_SMD_0603-2Pin_6.0x3.5mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -7004,9 +7051,9 @@
 		(uuid "dc8f6c60-ded8-4c73-abf6-fa494bc752ae")
 		(at 57.912 91.059)
 		(property "Reference" "U3"
-			(at -4.445 -2.286 0)
+			(at -4.445 -1.778 0)
 			(layer "F.SilkS")
-			(uuid "0e6cfb9b-e2f4-4b12-b8b4-a134e07eeea9")
+			(uuid "0823bf5c-cc16-441f-acff-3a7836f994be")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -7017,7 +7064,7 @@
 		(property "Value" "DS1337S+"
 			(at 0 -3.302 180)
 			(layer "F.SilkS")
-			(uuid "f00cb517-b840-40d4-9ade-6a566f2d5bec")
+			(uuid "bbe2ff95-eb19-4011-849f-ae912e8f4dca")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -7029,7 +7076,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "57af66e3-86f5-4b71-aba5-a6748ac5c2fe")
+			(uuid "46bd4778-fe68-45d2-8d75-a6fb9352d3ac")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7041,7 +7088,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "251059a9-38f5-4bfa-a829-9eb95b19c5fa")
+			(uuid "628d8891-5b95-4266-8188-12a9f8bcfbe3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7368,6 +7415,17 @@
 			(uuid "86fd07f4-3ec7-4d04-90a5-52cdfc6f8236")
 		)
 		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Package_SO.3dshapes/SOIC-8_3.9x4.9mm_P1.27mm.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 		(layer "F.Cu")
@@ -8657,7 +8715,7 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "Data Logger with \nthe ATMega328P"
+	(gr_text "DataLogger with \nthe ATMega328P"
 		(at 79.375 85.217 0)
 		(layer "B.SilkS")
 		(uuid "6e709de2-4af6-459c-b91f-37abf3c42a77")
