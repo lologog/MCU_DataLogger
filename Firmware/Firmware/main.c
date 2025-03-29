@@ -9,16 +9,14 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
+#include "uart.h"
 
-int main(void)
-{
-	DDRD |= (1 << PIND2);
-    while (1) 
-    {
-		PORTD |= (1 << PIND2);
-		_delay_ms(2000);
-		PORTD &= ~(1 << PIND2);
-		_delay_ms(2000);
-    }
+int main(void) {
+	UART_init(103); // 9600 baud at 16MHz
+
+	while (1) {
+		UART_send_string("Hello from ATmega328!\r\n");
+		_delay_ms(1000);
+	}
 }
 
