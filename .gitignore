@@ -7,3 +7,29 @@ PCBs/#auto_saved_files#
 PCBs/~MCU_DataLoggerPCB.kicad_pcb.lck
 PCBs/2_layer_MCU_DataLogger_Gerbers/
 PCBs/4_layer_MCU_DataLogger_Gerbers/
+
+#Microchip Studio
+# Ignore compiled object files and binaries
+*.o
+*.elf
+*.hex
+*.eep
+*.lss
+*.srec
+*.map
+
+# Ignore Microchip Studio/Atmel Studio generated files
+*.d
+*.dep
+*.mk
+*.log
+*.bak
+*.componentinfo.xml
+
+# Ignore compiler-generated folders
+Debug/
+Release/
+
+# Ignore IDE configuration files
+.vs/
+*.atsuo
