@@ -28,3 +28,11 @@ void rtc_get_time(uint8_t* hour, uint8_t* minute, uint8_t* second) {
 
 	I2C_stop();
 }
+
+uint32_t rtc_get_unix(void)
+{
+	uint8_t h, m, s;
+	rtc_get_time(&h, &m, &s);
+	
+	return h * 3600UL + m * 60UL + s;
+}

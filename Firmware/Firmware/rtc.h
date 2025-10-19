@@ -13,5 +13,6 @@
 
 uint8_t bcd_to_dec(uint8_t val);
 void rtc_get_time(uint8_t* hour, uint8_t* minute, uint8_t* second);
+uint32_t rtc_get_unix(void);
 
 #endif
