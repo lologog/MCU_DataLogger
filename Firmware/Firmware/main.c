@@ -23,6 +23,7 @@ int main(void) {
 
     // configure D2–D7 (PD2–PD7) as INPUT
     DDRD &= ~(0b11111100);  // clear bits 2–7 (input mode)
+	PORTD |= (0b11111100);  // set pull-ups on pins 2-7
 
     uint8_t h, m, s;
     uint8_t last_logged_second = 255;
@@ -39,8 +40,10 @@ int main(void) {
 		if ((s % 10 == 0) && (s != last_logged_second)) {
 			last_logged_second = s;
 
-			uint8_t pin_state = PIND & 0b11111100;  // read D2–D7 (PD2–PD7)
-			eeprom_log_entry(pin_state, s);         // save pin state + seconds
+			// read D2–D7 (PD2–PD7) - reversed PIND to switch from pull ups to pull downs
+			uint8_t pin_state = ~(PIND) & 0b11111100;
+			
+			eeprom_log_entry(pin_state, s); // save pin state + seconds
 
 			// print via UART message to show which pins are high and low
 			uint8_t d2 = (pin_state >> 2) & 0x01;
