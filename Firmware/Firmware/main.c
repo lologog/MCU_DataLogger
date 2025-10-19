@@ -3,6 +3,7 @@
  *
  * Created: 19.10.2025 14:58:19
  * Author : Krzysztof Tomicki
+ * Description: Main file
  */
 
 #define F_CPU 16000000UL
@@ -16,157 +17,18 @@
 #include "uart.h"
 #include "i2c.h"
 #include "rtc.h"
+#include "console.h"
+#include "windows.h"
+#include "config.h"
+#include "eeprom.h"
 
-#define WINDOW_COUNT 6
-#define LOOP_MS 1000UL // Time of one program iteration in ms
-#define LOOP_SEC (LOOP_MS / 1000UL)
-#define EEPROM_ADDR 0x0000
-
-const uint8_t window_pins[WINDOW_COUNT] = 
+const uint8_t window_pins[WINDOW_COUNT] =
 {
 	PD2, PD3, PD4, PD5, PD6, PD7
 };
 
-typedef struct  
-{
-	uint32_t opens;
-	uint32_t open_secs;
-	uint32_t start_time;
-	uint8_t state;
-} window_data_t;
-
 window_data_t windows[WINDOW_COUNT];
-
-static uint32_t boot_unix = 0;
-
-// Load windows info from EEPROM
-static void eep_load(void)
-{
-	eeprom_read_block((void*)windows, (const void*)EEPROM_ADDR, sizeof(windows));
-}
-
-// Save windows info to EEPROM
-static void eep_save(void)
-{
-	eeprom_update_block((const void*)windows, (void*)EEPROM_ADDR, sizeof(windows));
-}
-
-// Check if the EEPROM memory isnt uninitialized
-static void check_eep_load_data(void)
-{
-	for (uint8_t i = 0; i < WINDOW_COUNT; i++)
-	{
-		if (windows[i].opens == 0xFFFFFFFFUL || windows[i].open_secs == 0xFFFFFFFFUL || windows[i].start_time == 0xFFFFFFFFUL || windows[i].state == 0xFF)
-		{
-			memset(&windows[i], 0, sizeof(window_data_t));
-		}
-	}
-}
-
-static uint8_t uart_rx_available(void)
-{
-	return (UCSR0A & (1 << RXC0));
-}
-
-static uint8_t uart_rx_getchar(void)
-{
-	return UDR0;
-}
-
-static void windows_reset_data(uint32_t now)
-{
-	for (uint8_t i = 0; i < WINDOW_COUNT; i++)
-	{	
-		windows[i].opens = 0;
-		windows[i].open_secs = 0;
-		uint8_t hw = !(PIND & (1 << window_pins[i]));
-		windows[i].state = hw;
-		windows[i].start_time = hw ? now : 0;
-	}
-	
-	boot_unix = now;
-	eep_save();
-}
-
-static void print_banner(void)
-{
-	UART_send_string("\r\n=== WindowMonitor v1.0 ===\r\n");
-	UART_send_string("UART: 9600 8N1\r\n");
-	UART_send_string("Commands: 1=print, 2=reset, 3=uptime\r\n");
-	UART_send_string("> ");
-}
-
-// Set windows info after start
-void init_windows(void)
-{
-	for (uint8_t i = 0; i < WINDOW_COUNT; i++)
-	{
-		DDRD &= ~(1 << window_pins[i]);
-		PORTD |= (1 << window_pins[i]);
-
-		windows[i].opens = 0;
-		windows[i].open_secs = 0;
-		windows[i].start_time = 0;
-		windows[i].state = 0;
-	}
-	
-	eep_load();
-	check_eep_load_data();
-}
-
-// Windows data update logic
-void update_windows(uint32_t now)
-{
-	// Send current windows state
-	for (uint8_t i = 0; i < WINDOW_COUNT; i++)
-	{
-		uint8_t state = !(PIND & (1 << window_pins[i])); // 0 = CLOSED, 1 = OPEN
-				
-		// Detect change
-		if (state != windows[i].state)
-		{
-			if (state == 1)
-			{
-				// Window is opened
-				windows[i].opens++;
-				windows[i].start_time = now;
-			}
-			else
-			{
-				// Window is closed
-				if (windows[i].start_time > 0)
-				{
-					windows[i].start_time = 0;
-				}
-			}
-					
-			windows[i].state = state;
-			eep_save();
-		}
-				
-		// Count time when the window is opened
-		if (windows[i].state == 1 && windows[i].start_time > 0)
-		{
-			windows[i].open_secs += LOOP_SEC;
-		}
-	}
-}
-
-// Print windows data via UART to PC
-void print_windows(void)
-{
-	UART_send_string("\r\n-----------------------------\r\n");
-	
-	char buffer[64];
-
-	for (uint8_t i = 0; i < WINDOW_COUNT; i++)
-	{
-		sprintf(buffer, "Window %d: %s | Opens: %lu | OpenSecs: %lu\r\n", i + 1, windows[i].state ? "OPEN " : "CLOSED", windows[i].opens, windows[i].open_secs);
-		UART_send_string(buffer);
-	}
-
-	UART_send_string("-----------------------------\r\n");
-}
+uint32_t boot_unix = 0;
 
 int main(void) 
 {
@@ -179,47 +41,10 @@ int main(void)
 	
 	while (1)
 	{
-		// Get time from RTC module
 		uint32_t now = rtc_get_unix();
 		
 		update_windows(now);
-		
-		if (uart_rx_available())
-		{
-			char cmd = (char)uart_rx_getchar();
-			
-			if (cmd == '1')
-			{
-				print_windows();
-				UART_send_string("> ");
-			}
-			else if (cmd == '2')
-			{
-				windows_reset_data(now);
-				UART_send_string("OK: reset all windows\r\n");
-				UART_send_string("> ");
-			}
-			else if (cmd == '3')
-			{
-				uint32_t time = rtc_get_unix();
-				uint32_t dt = (time >= boot_unix) ? (time - boot_unix) : 0;
-
-				char buf[32];
-				uint32_t hh = dt / 3600;
-				uint32_t mm = (dt % 3600) / 60;
-				uint32_t ss = dt % 60;
-				sprintf(buf, "Uptime: %02lu:%02lu:%02lu\r\n",
-				(unsigned long)hh, (unsigned long)mm, (unsigned long)ss);
-
-				UART_send_string(buf);
-				UART_send_string("> ");
-			}
-			else
-			{
-				UART_send_string("Commands: 1=print, 2=reset, 3=uptime\r\n");
-				UART_send_string("> ");
-			}
-		}
+		uart_console(now);
 	
 		_delay_ms(LOOP_MS);
 	}
