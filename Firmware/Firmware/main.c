@@ -45,6 +45,11 @@ int main(void)
 	{
 		DDRD &= ~(1 << window_pins[i]); // Set PD2-PD7 pins as inputs
 		PORTD |= (1 << window_pins[i]); // Set pull-ups
+		
+		windows[i].opens = 0;
+		windows[i].open_secs = 0;
+		windows[i].start_time = 0;
+		windows[i].state = 0;
 	}
 	
 	while (1)
