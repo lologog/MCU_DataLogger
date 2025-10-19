@@ -7,6 +7,7 @@
  */
 
 #include "rtc.h"
+#include "i2c.h"
 
 // function to change BCD data format do decinal data format
 uint8_t bcd_to_dec(uint8_t val) {
