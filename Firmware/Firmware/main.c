@@ -59,6 +59,6 @@ int main(void) {
 	
 			UART_send_string(buffer);
 		}
-        _delay_ms(200);
+        _delay_ms(1000);
     }
 }
