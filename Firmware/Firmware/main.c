@@ -37,6 +37,8 @@ typedef struct
 
 window_data_t windows[WINDOW_COUNT];
 
+static uint32_t boot_unix = 0;
+
 // Load windows info from EEPROM
 static void eep_load(void)
 {
@@ -59,6 +61,39 @@ static void check_eep_load_data(void)
 			memset(&windows[i], 0, sizeof(window_data_t));
 		}
 	}
+}
+
+static uint8_t uart_rx_available(void)
+{
+	return (UCSR0A & (1 << RXC0));
+}
+
+static uint8_t uart_rx_getchar(void)
+{
+	return UDR0;
+}
+
+static void windows_reset_data(uint32_t now)
+{
+	for (uint8_t i = 0; i < WINDOW_COUNT; i++)
+	{	
+		windows[i].opens = 0;
+		windows[i].open_secs = 0;
+		uint8_t hw = !(PIND & (1 << window_pins[i]));
+		windows[i].state = hw;
+		windows[i].start_time = hw ? now : 0;
+	}
+	
+	boot_unix = now;
+	eep_save();
+}
+
+static void print_banner(void)
+{
+	UART_send_string("\r\n=== WindowMonitor v1.0 ===\r\n");
+	UART_send_string("UART: 9600 8N1\r\n");
+	UART_send_string("Commands: 1=print, 2=reset, 3=uptime\r\n");
+	UART_send_string("> ");
 }
 
 // Set windows info after start
@@ -120,6 +155,8 @@ void update_windows(uint32_t now)
 // Print windows data via UART to PC
 void print_windows(void)
 {
+	UART_send_string("\r\n-----------------------------\r\n");
+	
 	char buffer[64];
 
 	for (uint8_t i = 0; i < WINDOW_COUNT; i++)
@@ -136,21 +173,53 @@ int main(void)
 	UART_init(103); //9600 baud at 16 MHz
 	I2C_init();
 	init_windows();
+	print_banner();
 	
-	uint8_t h, m, s;
-	char buffer[64];
+	boot_unix = rtc_get_unix();
 	
 	while (1)
 	{
 		// Get time from RTC module
-		rtc_get_time(&h, &m, &s);
 		uint32_t now = rtc_get_unix();
 		
-		sprintf(buffer, "Time since start: %02d:%02d:%02d\r\n", h, m, s);
-		UART_send_string(buffer);
-		
 		update_windows(now);
-		print_windows();
+		
+		if (uart_rx_available())
+		{
+			char cmd = (char)uart_rx_getchar();
+			
+			if (cmd == '1')
+			{
+				print_windows();
+				UART_send_string("> ");
+			}
+			else if (cmd == '2')
+			{
+				windows_reset_data(now);
+				UART_send_string("OK: reset all windows\r\n");
+				UART_send_string("> ");
+			}
+			else if (cmd == '3')
+			{
+				uint32_t time = rtc_get_unix();
+				uint32_t dt = (time >= boot_unix) ? (time - boot_unix) : 0;
+
+				char buf[32];
+				uint32_t hh = dt / 3600;
+				uint32_t mm = (dt % 3600) / 60;
+				uint32_t ss = dt % 60;
+				sprintf(buf, "Uptime: %02lu:%02lu:%02lu\r\n",
+				(unsigned long)hh, (unsigned long)mm, (unsigned long)ss);
+
+				UART_send_string(buf);
+				UART_send_string("> ");
+			}
+			else
+			{
+				UART_send_string("Commands: 1=print, 2=reset, 3=uptime\r\n");
+				UART_send_string("> ");
+			}
+		}
 	
 		_delay_ms(LOOP_MS);
 	}
