@@ -10,6 +10,8 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
+#include <string.h>
+#include <avr/eeprom.h>
 
 #include "uart.h"
 #include "i2c.h"
@@ -18,6 +20,7 @@
 #define WINDOW_COUNT 6
 #define LOOP_MS 1000UL // Time of one program iteration in ms
 #define LOOP_SEC (LOOP_MS / 1000UL)
+#define EEPROM_ADDR 0x0000
 
 const uint8_t window_pins[WINDOW_COUNT] = 
 {
@@ -34,6 +37,31 @@ typedef struct
 
 window_data_t windows[WINDOW_COUNT];
 
+// Load windows info from EEPROM
+static void eep_load(void)
+{
+	eeprom_read_block((void*)windows, (const void*)EEPROM_ADDR, sizeof(windows));
+}
+
+// Save windows info to EEPROM
+static void eep_save(void)
+{
+	eeprom_update_block((const void*)windows, (void*)EEPROM_ADDR, sizeof(windows));
+}
+
+// Check if the EEPROM memory isnt uninitialized
+static void check_eep_load_data(void)
+{
+	for (uint8_t i = 0; i < WINDOW_COUNT; i++)
+	{
+		if (windows[i].opens == 0xFFFFFFFFUL || windows[i].open_secs == 0xFFFFFFFFUL || windows[i].start_time == 0xFFFFFFFFUL || windows[i].state == 0xFF)
+		{
+			memset(&windows[i], 0, sizeof(window_data_t));
+		}
+	}
+}
+
+// Set windows info after start
 void init_windows(void)
 {
 	for (uint8_t i = 0; i < WINDOW_COUNT; i++)
@@ -46,8 +74,12 @@ void init_windows(void)
 		windows[i].start_time = 0;
 		windows[i].state = 0;
 	}
+	
+	eep_load();
+	check_eep_load_data();
 }
 
+// Windows data update logic
 void update_windows(uint32_t now)
 {
 	// Send current windows state
@@ -74,6 +106,7 @@ void update_windows(uint32_t now)
 			}
 					
 			windows[i].state = state;
+			eep_save();
 		}
 				
 		// Count time when the window is opened
@@ -84,6 +117,7 @@ void update_windows(uint32_t now)
 	}
 }
 
+// Print windows data via UART to PC
 void print_windows(void)
 {
 	char buffer[64];
