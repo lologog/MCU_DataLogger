@@ -17,6 +17,8 @@
 #include "eeprom.h"
 
 #define WINDOW_COUNT 6
+#define LOOP_MS 1000UL // Time of one program iteration in ms
+#define LOOP_SEC (LOOP_MS / 1000UL)
 
 const uint8_t window_pins[WINDOW_COUNT] = 
 {
@@ -78,7 +80,7 @@ void update_windows(uint32_t now)
 		// Count time when the window is opened
 		if (windows[i].state == 1 && windows[i].start_time > 0)
 		{
-			windows[i].open_secs++;
+			windows[i].open_secs += LOOP_SEC;
 		}
 	}
 }
@@ -117,6 +119,6 @@ int main(void)
 		update_windows(now);
 		print_windows();
 	
-		_delay_ms(1000);
+		_delay_ms(LOOP_MS);
 	}
 }
