@@ -14,7 +14,6 @@
 #include "uart.h"
 #include "i2c.h"
 #include "rtc.h"
-#include "eeprom.h"
 
 #define WINDOW_COUNT 6
 #define LOOP_MS 1000UL // Time of one program iteration in ms
