@@ -72,7 +72,10 @@ This section implements the Office Window Monitor example, showcasing how the da
 - **console.c / console.h** - handles UART command parsing and formatted data output for the serial console.
 
 ### Example UART Output
-![](Images/DataLogger-terminal.png)
+<div align="center">
+  <img src="Images/DataLogger-terminal.png"/>
+</div>
+
 
 After startup, the device displays basic information such as firmware version, UART settings and available commands.
 The first readout shows the initial state where all windows are closed.
